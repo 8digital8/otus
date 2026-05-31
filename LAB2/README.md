@@ -8,13 +8,13 @@
 5.План работы и изменения зафиксированы в документации.
 
 ###  Офис Москва:
-Коммутаторы SW2, SW3, SW4 и SW5 используют ip sla для переключения маршрута по умлочанию.
-Пример конфигурации:
-ip route 0.0.0.0 0.0.0.0 10.0.101.13 track 1
-ip route 0.0.0.0 0.0.0.0 10.0.101.13
-ip route 0.0.0.0 0.0.0.0 10.0.101.12
-ip sla 1
- icmp-echo 10.0.101.13 source-interface Vlan101
- frequency 5
-ip sla schedule 1 life forever start-time now
+Коммутаторы SW2, SW3, SW4 и SW5 используют ip sla для переключения маршрута по умлочанию.  
+Пример конфигурации:  
+ip route 0.0.0.0 0.0.0.0 10.0.101.13 track 1  
+ip route 0.0.0.0 0.0.0.0 10.0.101.13  
+ip route 0.0.0.0 0.0.0.0 10.0.101.12  
+ip sla 1  
+ icmp-echo 10.0.101.13 source-interface Vlan101  
+ frequency 5  
+ip sla schedule 1 life forever start-time now  
 
