@@ -21,19 +21,18 @@ ip sla schedule 1 life forever start-time now
 ### 2.Распределите трафик между двумя линками с провайдером.
 Маршрутизатор R18 распределяет траффик между двуми мрашрутизаторами AS520 по сети источника пакета.  
 Пример конфигурации:  
-access-list 100 permit ip 192.168.102.0 0.0.0.255 any 
-access-list 100 permit ip 192.168.103.0 0.0.0.255 any
-route-map PBR permit 10
- match ip address 100
- set ip next-hop 172.16.0.62
-route-map PBR permit 20
- match ip address 101
- set ip next-hop 172.16.0.66
-interface Ethernet0/1
- ip policy route-map PBR
- interface Ethernet0/0
+access-list 100 permit ip 192.168.102.0 0.0.0.255 any  
+access-list 101 permit ip 192.168.103.0 0.0.0.255 any 
+route-map PBR permit 10 
+ match ip address 100  
+ set ip next-hop 172.16.0.62 
+route-map PBR permit 20 
+ match ip address 101 
+ set ip next-hop 172.16.0.66 
+interface Ethernet0/1 
  ip policy route-map PBR 
-
+ interface Ethernet0/0 
+ ip policy route-map PBR 
 
 ### 3.Настроить отслеживание линка через технологию IP SLA.(только для IPv4)
 Коммутаторы SW2, SW3, SW4, SW5, SW9 и SW10 используют ip sla для переключения маршрута по умлочанию.  
