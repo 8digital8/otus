@@ -22,7 +22,7 @@ ip sla schedule 1 life forever start-time now
 Маршрутизатор R18 распределяет траффик между двуми мрашрутизаторами AS520 по сети источника пакета.  
 Пример конфигурации:  
 access-list 100 permit ip 192.168.102.0 0.0.0.255 any  
-access-list 101 permit ip 192.168.103.0 0.0.0.255 any 
+access-list 101 permit ip 192.168.103.0 0.0.0.255 any  
 route-map PBR permit 10 
  match ip address 100  
  set ip next-hop 172.16.0.62 
