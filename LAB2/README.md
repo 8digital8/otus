@@ -19,15 +19,20 @@ ip sla 1
 ip sla schedule 1 life forever start-time now  
 
 ### 2.Распределите трафик между двумя линками с провайдером.
-Коммутаторы SW2, SW3, SW4 и SW5 используют ip sla для переключения маршрута по умлочанию.  
+Маршрутизатор R18 распределяет траффик между двуми мрашрутизаторами AS520 по сети источника пакета.  
 Пример конфигурации:  
-ip route 0.0.0.0 0.0.0.0 10.0.101.13 track 1  
-ip route 0.0.0.0 0.0.0.0 10.0.101.13  
-ip route 0.0.0.0 0.0.0.0 10.0.101.12  
-ip sla 1  
- icmp-echo 10.0.101.13 source-interface Vlan101  
- frequency 5  
-ip sla schedule 1 life forever start-time now  
+access-list 100 permit ip 192.168.102.0 0.0.0.255 any 
+access-list 100 permit ip 192.168.103.0 0.0.0.255 any
+route-map PBR permit 10
+ match ip address 100
+ set ip next-hop 172.16.0.62
+route-map PBR permit 20
+ match ip address 101
+ set ip next-hop 172.16.0.66
+interface Ethernet0/1
+ ip policy route-map PBR
+ interface Ethernet0/0
+ ip policy route-map PBR 
 
 
 ### 3.Настроить отслеживание линка через технологию IP SLA.(только для IPv4)
