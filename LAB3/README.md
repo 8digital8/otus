@@ -3,40 +3,40 @@
 
 1. Настроить OSPF в офисе Москва, разделить сеть на зоны и настроить фильтрацию между зонами.
 
-### R14-R15
+#### R14-R15
 Маршрутизаторы R14-R15 находятся в зоне 0 - backbone, но не имели прямого подключения к друг к другу, создано физическое подключения на интерфейсах Ethernet1/0 на ооих маршрутизаторах, сеть 172.16.0.92/30, вариант с виртальными линками и тунелями решено не применять. 
 
 #### R12-13
 Маршрутизаторы R12-R13 находятся в зоне 10 , импользуется тип зоны stub, получаем межзоновые маршруты и маршрут по умлочанию через ABR.
 
-### R19
+#### R19
 Маршрутизатор R19 находится в зоне 101 и получает только маршрут по умолчанию, используется тип зоны totally stubby (stub no-summary).
 
-### R20
+#### R20
 Маршрутизатор R20 находится в зоне 102 и получает все маршруты, кроме маршрутов до сетей зоны 101, используется стандартный тип зоны и фильтрация исходящих маршрутов на R15.
 
 ## Пример конфигурации
 R20
-router ospf 1
- router-id 10.0.100.20
-interface Loopback0
- description routers_managment
- ip address 10.0.100.20 255.255.255.255
- ip ospf 1 area 102
-!
-interface Ethernet0/0
- description to-r15
- ip address 172.16.0.21 255.255.255.252
- ip ospf 1 area 102
+router ospf 1   
+ router-id 10.0.100.20   
+interface Loopback0  
+ description routers_managment  
+ ip address 10.0.100.20 255.255.255.255   
+ ip ospf 1 area 102   
+    
+interface Ethernet0/0   
+ description to-r15   
+ ip address 172.16.0.21 255.255.255.252    
+ ip ospf 1 area 102    
 
-R15
-ip prefix-list BLOCK-A101 seq 15 deny 10.0.100.19/32
-ip prefix-list BLOCK-A101 seq 20 permit 0.0.0.0/0 le 32
-router ospf 1
- router-id 10.0.100.15
- area 10 stub
- area 102 filter-list prefix BLOCK-A101 in
-interface Ethernet0/3
- description to-r20
+R15   
+ip prefix-list BLOCK-A101 seq 15 deny 10.0.100.19/32    
+ip prefix-list BLOCK-A101 seq 20 permit 0.0.0.0/0 le 32    
+router ospf 1    
+ router-id 10.0.100.15    
+ area 10 stub    
+ area 102 filter-list prefix BLOCK-A101 in    
+interface Ethernet0/3    
+ description to-r20    
  ip address 172.16.0.22 255.255.255.252
  ip ospf 1 area 102
