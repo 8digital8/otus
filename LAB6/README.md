@@ -12,14 +12,14 @@
 
 ## Пример кнфигурации R14:
 
-router bgp 1001
- bgp router-id 10.0.100.14
- bgp log-neighbor-changes
- network 10.0.100.14 mask 255.255.255.255
- neighbor 10.0.100.15 remote-as 1001
- neighbor 10.0.100.15 update-source Loopback0
- neighbor 10.0.100.15 next-hop-self
- neighbor 172.16.0.26 remote-as 101
+router bgp 1001        
+ bgp router-id 10.0.100.14        
+ bgp log-neighbor-changes        
+ network 10.0.100.14 mask 255.255.255.255        
+ neighbor 10.0.100.15 remote-as 1001        
+ neighbor 10.0.100.15 update-source Loopback0        
+ neighbor 10.0.100.15 next-hop-self        
+ neighbor 172.16.0.26 remote-as 101        
 
 ## 
 
