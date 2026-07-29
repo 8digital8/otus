@@ -8,24 +8,20 @@
     Настроите eBGP между офисом С.-Петербург и провайдером Триада.
     Организуете IP доступность между пограничным роутерами офисами Москва и С.-Петербург.
 
-R16-17 анонсируют только суммарные префиксы. Данный пункт не полностью выполнен, так как адресация не позволяют сделать один суммированный маршрут. Суммарный префикс только один, остальные прекфиксы передаются как есть через network.
+Анносируются только loopback сети, дисрибуция маршрутов не делается.
 
-## Пример кнфигурации:
+## Пример кнфигурации R14:
 
-router eigrp SPB            
- !        
- address-family ipv4 unicast autonomous-system 2042        
-  !        
-  af-interface Ethernet0/1        
-   summary-address 192.168.102.0 255.255.254.0        
-  exit-af-interface        
-  !        
-  topology base        
-  exit-af-topology        
-  network 10.0.100.17 0.0.0.0        
-  network 172.16.0.68 0.0.0.3        
-  network 192.168.102.0 0.0.1.255        
-  eigrp router-id 10.0.100.17        
- exit-address-family        
+router bgp 1001
+ bgp router-id 10.0.100.14
+ bgp log-neighbor-changes
+ network 10.0.100.14 mask 255.255.255.255
+ neighbor 10.0.100.15 remote-as 1001
+ neighbor 10.0.100.15 update-source Loopback0
+ neighbor 10.0.100.15 next-hop-self
+ neighbor 172.16.0.26 remote-as 101
+
+## 
+
         
 
