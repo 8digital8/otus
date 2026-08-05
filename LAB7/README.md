@@ -8,18 +8,58 @@
     Настройте офиса С.-Петербург так, чтобы трафик до любого офиса распределялся по двум линкам одновременно.
     Все сети в лабораторной работе должны иметь IP связность.
 
-Анонсируются только loopback сети, дистрибуция маршрутов не делается.
+Для AS1001 Москва выполняется редистрибуция сетей на R14 и R15 из ospf в bgp и обратно.        
+Настроено iBGP между R14 и R15.
 
 ### Пример конфигурации R14:
-
+router ospf 1        
+ router-id 10.0.100.14        
+ area 10 stub        
+ area 101 stub no-summary        
+ redistribute bgp 1001 subnets        
+!        
 router bgp 1001        
  bgp router-id 10.0.100.14        
  bgp log-neighbor-changes        
- network 10.0.100.14 mask 255.255.255.255        
  neighbor 10.0.100.15 remote-as 1001        
  neighbor 10.0.100.15 update-source Loopback0        
- neighbor 10.0.100.15 next-hop-self        
  neighbor 172.16.0.26 remote-as 101        
+ !        
+ address-family ipv4        
+  network 10.0.100.14 mask 255.255.255.255        
+  aggregate-address 192.168.100.0 255.255.254.0 summary-only        
+  redistribute ospf 1 match internal external 1 external 2        
+  neighbor 10.0.100.15 activate        
+  neighbor 10.0.100.15 next-hop-self        
+  neighbor 172.16.0.26 activate        
+ exit-address-family        
+!        
+
+### Пример конфигурации R15:
+
+router ospf 1        
+ router-id 10.0.100.15        
+ area 10 stub        
+ area 102 filter-list prefix BLOCK-A101 in        
+ redistribute bgp 1001 subnets        
+!
+router bgp 1001        
+ bgp router-id 10.0.100.15        
+ bgp log-neighbor-changes        
+ neighbor 10.0.100.14 remote-as 1001        
+ neighbor 10.0.100.14 update-source Loopback0        
+ neighbor 172.16.0.30 remote-as 301        
+ !
+ address-family ipv4        
+  network 10.0.100.15 mask 255.255.255.255        
+  aggregate-address 192.168.100.0 255.255.254.0 summary-only        
+  redistribute ospf 1 match internal external 1 external 2        
+  neighbor 10.0.100.14 activate        
+  neighbor 10.0.100.14 next-hop-self        
+  neighbor 172.16.0.30 activate        
+  neighbor 172.16.0.30 route-map LAMAS-IN in        
+ exit-address-family        
+
 
 ### Проверка связности:
 
