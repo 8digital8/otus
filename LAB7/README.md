@@ -66,28 +66,68 @@ router bgp 1001
 route-map LAMAS-IN permit 10        
  set local-preference 200        
 
+Для AS2024 Санкт-Петербург выполняется редистрибуция сетей в bgp.
+Трафик до любого офиса распределялся по двум линкам одновременно.
 
+### Пример конфигурации R18:        
 
-
-
+router eigrp SPB        
+ !        
+ address-family ipv4 unicast autonomous-system 2042        
+  !        
+  topology base        
+   redistribute bgp 2042 metric 1000000 100 255 1 1500        
+  exit-af-topology        
+  network 10.0.100.18 0.0.0.0        
+  network 172.16.0.68 0.0.0.3        
+  network 172.16.0.72 0.0.0.3        
+  eigrp router-id 10.0.100.18        
+ exit-address-family        
+!
+router bgp 2042        
+ bgp router-id 10.0.100.18        
+ bgp log-neighbor-changes        
+ neighbor 172.16.0.62 remote-as 520        
+ neighbor 172.16.0.66 remote-as 520        
+ !
+ address-family ipv4        
+  network 10.0.100.18 mask 255.255.255.255        
+  network 192.168.102.0 mask 255.255.254.0        
+  neighbor 172.16.0.62 activate        
+  neighbor 172.16.0.66 activate        
+  maximum-paths 2        
+ exit-address-family        
+!        
 
 ### Проверка связности:
 
-msk-as1001-r14#traceroute 10.0.100.18 source 10.0.100.14        
+msk-as1001-r12#ping 192.168.102.17        
 Type escape sequence to abort.        
-Tracing the route to 10.0.100.18        
-VRF info: (vrf in name/id, vrf out name/id)        
-  1 172.16.0.94 0 msec 1 msec 0 msec        
-  2 172.16.0.30 1 msec 1 msec 2 msec        
-  3 172.16.0.42 2 msec 2 msec 2 msec        
-  4 172.16.0.61 2 msec 1 msec *        
-
-msk-as1001-r14#ping 10.0.100.18 source 10.0.100.14        
-Type escape sequence to abort.        
-Sending 5, 100-byte ICMP Echos to 10.0.100.18, timeout is 2 seconds:        
-Packet sent with a source address of 10.0.100.14        
+Sending 5, 100-byte ICMP Echos to 192.168.102.17, timeout is 2 seconds:        
 !!!!!        
-Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/1 ms        
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms        
+msk-as1001-r12#tracer        
+msk-as1001-r12#traceroute 192.168.102.17        
+Type escape sequence to abort.        
+Tracing the route to 192.168.102.17        
+VRF info: (vrf in name/id, vrf out name/id)        
+  1 172.16.0.6 0 msec        
+    172.16.0.10 1 msec        
+    172.16.0.6 1 msec        
+  2 172.16.0.30 0 msec        
+    172.16.0.94 2 msec        
+    172.16.0.30 1 msec        
+  3 172.16.0.30 1 msec        
+    172.16.0.42 2 msec        
+    172.16.0.30 4 msec        
+  4 172.16.0.61 5 msec        
+    172.16.0.42 5 msec        
+    172.16.0.61 8 msec        
+  5 172.16.0.61 8 msec        
+    172.16.0.69 6 msec        
+    172.16.0.61 2 msec        
+msk-as1001-r12#        
+        
 
 
         
