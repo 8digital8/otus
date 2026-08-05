@@ -35,6 +35,9 @@ router bgp 1001
  exit-address-family        
 !        
 
+Настроен приоритетный провайдер на R15. 
+Все маршруты, полученные от этого соседа, получают LOCAL_PREF = 200.               
+
 ### Пример конфигурации R15:
 
 router ospf 1        
@@ -59,6 +62,13 @@ router bgp 1001
   neighbor 172.16.0.30 activate        
   neighbor 172.16.0.30 route-map LAMAS-IN in        
  exit-address-family        
+        
+route-map LAMAS-IN permit 10        
+ set local-preference 200        
+
+
+
+
 
 
 ### Проверка связности:
