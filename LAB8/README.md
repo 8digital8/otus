@@ -19,6 +19,10 @@ router bgp 1001
  neighbor 172.16.0.26 filter-list 10 out (для R15 172.16.0.28)       
 !        
 
+### Проверка К14: 
+<img width="570" height="347" alt="изображение" src="https://github.com/user-attachments/assets/f79808d9-be53-468a-8489-a6fe00cd19dd" />
+
+
 
 
 ### Пример конфигурации R15:
