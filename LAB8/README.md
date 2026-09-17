@@ -41,12 +41,28 @@ router bgp 2042
 ### Проверка R18 анонсирует только свои сети:
 <img width="566" height="243" alt="изображение" src="https://github.com/user-attachments/assets/b15d9298-f168-49fc-9979-0041f5a6408a" />
 
+### Киторн → Москва: только дефолт R22:
+
+### Пример конфигурации R22:   
+
+ip prefix-list ONLY-DEFAULT seq 5 permit 0.0.0.0/0  
+!  
+router bgp 101  
+ neighbor 172.16.0.25 default-originate  
+ neighbor 172.16.0.25 prefix-list ONLY-DEFAULT out  
+
+### Ламас → Москва: дефолт + префикс СПб R21:
+
+ip prefix-list DEF-SPB seq 5  permit 0.0.0.0/0   
+ip prefix-list DEF-SPB seq 10 permit 10.0.102.0/24  
+ip prefix-list DEF-SPB seq 15 permit 192.168.102.0/24  
+ip prefix-list DEF-SPB seq 20 permit 192.168.103.0/24  
+!  
+router bgp 301  
+ neighbor 172.16.0.29 default-originate  
+ neighbor 172.16.0.29 prefix-list DEF-SPB out  
 
 
-
-
-
-### Проверка связности:
 
 msk-as1001-r12#ping 192.168.102.17        
 Type escape sequence to abort.        
