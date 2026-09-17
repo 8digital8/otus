@@ -38,23 +38,13 @@ router bgp 2042
  neighbor 172.16.0.62 prefix-list SPB-OWN out  
  neighbor 172.16.0.66 prefix-list SPB-OWN out  
 
+### Проверка R18 анонсирует только свои сети:
+<img width="566" height="243" alt="изображение" src="https://github.com/user-attachments/assets/b15d9298-f168-49fc-9979-0041f5a6408a" />
 
 
 
 
- bgp router-id 10.0.100.18        
- bgp log-neighbor-changes        
- neighbor 172.16.0.62 remote-as 520        
- neighbor 172.16.0.66 remote-as 520        
- !
- address-family ipv4        
-  network 10.0.100.18 mask 255.255.255.255        
-  network 192.168.102.0 mask 255.255.254.0        
-  neighbor 172.16.0.62 activate        
-  neighbor 172.16.0.66 activate        
-  maximum-paths 2        
- exit-address-family        
-!        
+
 
 ### Проверка связности:
 
