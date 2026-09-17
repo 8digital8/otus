@@ -22,56 +22,26 @@ router bgp 1001
 ### Проверка R14 анонсирует только свои сети: 
 <img width="570" height="347" alt="изображение" src="https://github.com/user-attachments/assets/f79808d9-be53-468a-8489-a6fe00cd19dd" />
 
-
-
-
-### Пример конфигурации R15:
-
-router ospf 1        
- router-id 10.0.100.15        
- area 10 stub        
- area 102 filter-list prefix BLOCK-A101 in        
- redistribute bgp 1001 subnets        
-!
-router bgp 1001        
- bgp router-id 10.0.100.15        
- bgp log-neighbor-changes        
- neighbor 10.0.100.14 remote-as 1001        
- neighbor 10.0.100.14 update-source Loopback0        
- neighbor 172.16.0.30 remote-as 301        
- !
- address-family ipv4        
-  network 10.0.100.15 mask 255.255.255.255        
-  aggregate-address 192.168.100.0 255.255.254.0 summary-only        
-  redistribute ospf 1 match internal external 1 external 2        
-  neighbor 10.0.100.14 activate        
-  neighbor 10.0.100.14 next-hop-self        
-  neighbor 172.16.0.30 activate        
-  neighbor 172.16.0.30 route-map LAMAS-IN in        
- exit-address-family        
-        
-route-map LAMAS-IN permit 10        
- set local-preference 200        
-
-Для AS2024 Санкт-Петербург выполняется редистрибуция сетей в bgp.
-Трафик до любого офиса распределялся по двум линкам одновременно.
+### С.-Петербург — запрет транзита (prefix-list)
+Тот же смысл, инструментом prefix-list: к R24 и R26 наружу пускаем только собственные сети СПб, остальное режет implicit deny.
 
 ### Пример конфигурации R18:        
 
-router eigrp SPB        
- !        
- address-family ipv4 unicast autonomous-system 2042        
-  !        
-  topology base        
-   redistribute bgp 2042 metric 1000000 100 255 1 1500        
-  exit-af-topology        
-  network 10.0.100.18 0.0.0.0        
-  network 172.16.0.68 0.0.0.3        
-  network 172.16.0.72 0.0.0.3        
-  eigrp router-id 10.0.100.18        
- exit-address-family        
-!
-router bgp 2042        
+ip prefix-list SPB-OWN seq 5 permit 192.168.102.0/23  
+ip prefix-list SPB-OWN seq 10 permit 10.0.102.0/24  
+ip prefix-list SPB-OWN seq 20 permit 10.0.100.16/32  
+ip prefix-list SPB-OWN seq 25 permit 10.0.100.17/32  
+ip prefix-list SPB-OWN seq 30 permit 10.0.100.18/32  
+ip prefix-list SPB-OWN seq 35 permit 10.0.100.32/32  
+
+router bgp 2042  
+ neighbor 172.16.0.62 prefix-list SPB-OWN out  
+ neighbor 172.16.0.66 prefix-list SPB-OWN out  
+
+
+
+
+
  bgp router-id 10.0.100.18        
  bgp log-neighbor-changes        
  neighbor 172.16.0.62 remote-as 520        
