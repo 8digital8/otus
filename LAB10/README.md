@@ -28,6 +28,7 @@ interface Tunnel12
  ip tcp adjust-mss 1360  
 
 ##### Проверка:
+![Uploading изображение.png…]()
 
 
 
