@@ -66,4 +66,12 @@ interface Tunnel1
  ip nhrp shortcut  
  ip mtu 1400  
  ip tcp adjust-mss 1360 
+##### Проверка:
+<img width="565" height="239" alt="изображение" src="https://github.com/user-attachments/assets/774dfa9d-edc3-4c16-883e-343111591dd0" />  
+<img width="393" height="138" alt="изображение" src="https://github.com/user-attachments/assets/ff4a6fa2-fca9-4ec5-8107-29843af43613" />  
+<img width="547" height="216" alt="изображение" src="https://github.com/user-attachments/assets/74fac9ca-2a12-4f13-938c-9e7f3e7de357" />  
+<img width="501" height="174" alt="изображение" src="https://github.com/user-attachments/assets/ee0cd175-5e25-4a46-8e86-c4d1f30396e8" />
+
+
+
 
