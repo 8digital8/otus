@@ -28,10 +28,7 @@ interface Tunnel12
  ip tcp adjust-mss 1360  
 
 ##### Проверка:
-![Uploading изображение.png…]()
-
-
-
+<img width="701" height="616" alt="изображение" src="https://github.com/user-attachments/assets/131bbb3e-cc47-4e68-8b6f-06d9acc06679" />
 ### Настроите DMVMN между Москва и Чокурдах, Лабытнанги. 
 ##### Пример конфигурации R14:
 interface Tunnel1  
