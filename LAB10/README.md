@@ -18,7 +18,7 @@ interface Tunnel12
  ip mtu 1400  
  ip tcp adjust-mss 1360  
 
-##### Пример конфигурации R14:
+##### Пример конфигурации R18:
 interface Tunnel12  
  ip address 172.31.0.2 255.255.255.252  
  tunnel source Loopback0  
