@@ -71,6 +71,10 @@ interface Ethernet0/1
  mpls ip      
  
 ##### Проверка:
+<img width="512" height="170" alt="изображение" src="https://github.com/user-attachments/assets/a9cbeff9-0062-4d1a-b4f6-1671b311910d" />
+<img width="561" height="500" alt="изображение" src="https://github.com/user-attachments/assets/5053f489-3269-47f2-86a0-5701554a333e" />
+<img width="543" height="81" alt="изображение" src="https://github.com/user-attachments/assets/c4610126-d8b3-4e61-9951-be33cdacdf21" />
+<img width="440" height="156" alt="изображение" src="https://github.com/user-attachments/assets/0e480d2d-f965-43db-a6f4-ec669a519804" />
 
 
 
