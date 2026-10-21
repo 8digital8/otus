@@ -57,6 +57,9 @@ interface Tunnel12
  ip tcp adjust-mss 1360  
  tunnel protection ipsec profile IPSEC-PROF  
 ##### Проверка
+<img width="766" height="323" alt="изображение" src="https://github.com/user-attachments/assets/b29420d7-ea42-43b0-a019-b448bcf53dbf" />
+<img width="633" height="752" alt="изображение" src="https://github.com/user-attachments/assets/c8bdd880-06a6-4023-9a71-cf1976496546" />
+<img width="462" height="175" alt="изображение" src="https://github.com/user-attachments/assets/1e2ef134-460a-421e-b9db-a0409f58012e" />
 
 ### Настроите DMVPN поверх IPSec между Москва и Чокурдах, Лабытнанги.ь
 
@@ -101,6 +104,10 @@ interface Tunnel1
  tunnel protection ipsec profile IPSEC-PROF 
 
 ##### Проверка
+<img width="574" height="833" alt="изображение" src="https://github.com/user-attachments/assets/a42e73ba-1244-4ba1-a15d-c46bca857596" />
+<img width="490" height="103" alt="изображение" src="https://github.com/user-attachments/assets/85473d4d-5deb-4b8e-a7f9-02092c92ae41" />
+<img width="499" height="101" alt="изображение" src="https://github.com/user-attachments/assets/cfd38157-cf29-423c-b482-3f08f8e86294" />
+<img width="489" height="98" alt="изображение" src="https://github.com/user-attachments/assets/554f3c5b-9f35-4229-a566-2071ca28b3b9" />
 
 
 
