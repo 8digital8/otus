@@ -34,23 +34,26 @@ interface Ethernet0/3
  mpls ip                       
 interface Ethernet1/0  
  mpls ip  
-  
+    
+##### Пример конфигурации R12:
+mpls label protocol ldp  
+mpls ldp router-id Loopback0 force  
+!
+interface Ethernet0/2  
+ mpls ip                     
+interface Ethernet0/3  
+ mpls ip                     
+interface Ethernet0/0  
+ mpls ip       
+
+##### Проверка R14:
+<img width="523" height="560" alt="изображение" src="https://github.com/user-attachments/assets/7b99ca7d-72ca-49ec-946b-010bab3cbc27" />
+<img width="565" height="284" alt="изображение" src="https://github.com/user-attachments/assets/4b6c3c6f-0a37-4fa1-85dc-8bae3da54306" />
+<img width="545" height="84" alt="изображение" src="https://github.com/user-attachments/assets/0f44adfa-d1c1-4b70-a0db-d3eefbf0edfd" />
 
 
 
-      
 
-##### Пример конфигурации R18:
-interface Tunnel12  
- ip address 172.31.0.2 255.255.255.252  
- tunnel source Loopback0  
- tunnel destination 10.0.100.14  
- tunnel key 12  
- ip mtu 1400  
- ip tcp adjust-mss 1360  
-
-##### Проверка:
-<img width="701" height="616" alt="изображение" src="https://github.com/user-attachments/assets/131bbb3e-cc47-4e68-8b6f-06d9acc06679" />  
 
 ### Настроите DMVMN между Москва и Чокурдах, Лабытнанги. 
 ##### Пример конфигурации R14:
@@ -93,7 +96,6 @@ interface Tunnel1
 <img width="393" height="138" alt="изображение" src="https://github.com/user-attachments/assets/ff4a6fa2-fca9-4ec5-8107-29843af43613" />  
 <img width="547" height="216" alt="изображение" src="https://github.com/user-attachments/assets/74fac9ca-2a12-4f13-938c-9e7f3e7de357" />  
 <img width="501" height="174" alt="изображение" src="https://github.com/user-attachments/assets/ee0cd175-5e25-4a46-8e86-c4d1f30396e8" />
-
 
 
 
